@@ -4,6 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const os = require('os')
+const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({
   size: os.cpus().length
 })

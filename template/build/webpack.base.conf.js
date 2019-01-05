@@ -47,6 +47,13 @@ module.exports = {
       '@img': resolve('static/img')
     }
   },
+  externals: {
+    vue: 'Vue',
+    'element-ui': 'ELEMENT',
+    'vue-router': 'VueRouter',
+    vuex: 'Vuex',
+    axios: 'axios'
+  },
   module: {
     rules: [
       {{#lint}}

@@ -5,7 +5,7 @@
 import App from './App'
 {{#router}}
 import router from './router'
-  import './icons'
+  import '../icons'
 
 {{/router}}
 const Vue = require('vue')

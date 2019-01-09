@@ -1,0 +1,396 @@
+
+/* 绝对布局全覆盖常用于对话框的遮罩层
+ * ${background} 背景色
+ * ${z-index} 所在层级
+ * ${opacity} 透明度 
+ */
+@mixin allCover($background: black, $z-index: 100, $opacity: 1) {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: $z-index;
+  background: $background;
+  opacity: $opacity;
+}
+
+/* 布局文字全居中
+ * ${textAlign} 文字对齐方式
+ */
+@mixin locInCenter($textAlign: center) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: $textAlign;
+}
+
+/* 水平居中，前者控制inline,后者控制block
+ * ${textAlign} 文字对齐方式
+ * ${margin} 默认使用 0 auto实现块级元素的水平居中
+ * 
+ */
+@mixin horizontalCenter($textAlign: center, $margin: 0 auto) {
+  text-align: $textAlign;
+  margin: $margin;
+}
+
+/* flex垂直水平居中 */
+@mixin FlexCenter {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 圆形布局
+ * ${radius} 半径
+ */
+@mixin circleLayout($radius) {
+  width: $radius;
+  height: $radius;
+  border-radius: 50%;
+}
+
+/* 布局分隔符，常用于几个tab间的分割
+ * ${width} 分隔符宽度
+ * ${background} 背景色
+ * ${selector} 元素选择器 
+ * ${directionRight} true:right,false:bottom
+ */
+@mixin divideLineByBorder($width: 1px,
+$background: $divideColor,
+$selector: div,
+$directionRight: true) {
+  @if $directionRight {
+    & #{$selector} {
+      display: inline-block;
+      border-right: $background $width solid;
+    }
+
+    & #{$selector}:last-child {
+      border-right: none;
+    }
+  }
+
+  @else {
+    & #{$selector} {
+      display: inline-block;
+      border-bottom: $background $width solid;
+    }
+
+    & #{$selector}:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+/* 单行省略号 */
+@mixin oneLineEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 多行省略号，仅对webkit内核浏览器有效
+ * ${line} 需要显示的行 */
+@mixin multiLineEllipsis($line) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
+
+/* 多行省略号，需知道长宽及分几行
+ * ${width} 宽
+ * ${height} 高
+ * ${line} 分几行 
+ * ${textSelector} 文本节点选择器 
+ * ${ellSelector} 省略号节点选择器 */
+@mixin multiLineEllipsisByWidthAndHeight($width,
+$height,
+$line,
+$textSelector,
+$ellSelector) {
+  #{$textSelector} {
+    display: inline-block;
+    height: $height;
+    width: $width;
+    line-height: $height/$line;
+    overflow: hidden;
+  }
+
+  #{$ellSelector}:after {
+    display: inline;
+    content: '...';
+  }
+}
+
+/* 禁止选中文本 */
+@mixin disabledSelect {
+  user-select: none;
+}
+
+/* 清除移动端点击背景高亮 */
+@mixin clearHighlight {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* 硬件加速 */
+@mixin hardwareSpeed {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+/* 自定义a标签 */
+@mixin resetATag {
+  a:link {
+    @content;
+  }
+
+  a:hover {
+    @content;
+  }
+
+  a:visited {
+    @content;
+  }
+
+  a:active {
+    @content;
+  }
+}
+
+/* 清除浮动
+ * ${clearFix} 清除浮动节点选择器 */
+@mixin clearFloat($clearFix: '.clearFix') {
+
+  #{$clearFix}:before,
+  #{$clearFix}:after {
+    content: '';
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+
+  #{$clearFix} {
+    *zoom: 1;
+  }
+}
+
+/* 图片居中自适应
+ * ${width} 宽
+ * ${height} 高
+ * ${selector} 容器选择器 */
+@mixin imgCenterAndAutoFix($width, $height, $selector) {
+  #{$selector} {
+    position: relative;
+    width: $width;
+    height: $height;
+    border: 1px solid #e2e2e2;
+  }
+
+  #{$selector} img {
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: $width;
+    max-height: $height;
+  }
+}
+
+/* 左右固定，中间自适应宽度
+ * ${left} 左边节点选择器
+ * ${right} 右边节点选择器
+ * ${center} 中间节点选择器 
+ * ${height} 左右两边高度 
+ * ${width} 左右两边宽度 */
+@mixin autoWidthCenter($left: '#left',
+$right: '#right',
+$center: '#center',
+$height: 100%,
+$width: 200px) {
+
+  #{$left},
+  #{$right} {
+    width: $width;
+    height: $height;
+    position: absolute;
+  }
+
+  #{$left} {
+    left: 0;
+  }
+
+  #{$right} {
+    right: 0;
+  }
+
+  #{$center} {
+    margin: 2px $width;
+    height: $height;
+  }
+}
+
+/* 上面自适应，下面填充满剩余空间
+ * ${headerSelector} 上方节点选择器
+ * ${bottomSelector} 下方节点选择器
+ * ${containerHeight} 父容器高度 */
+@mixin headerAutoAndBottomCover($headerSelector: '#flexHeader',
+$bottomSelector: '#flexBottom',
+$containerHeight: 1000px) {
+  display: flex;
+  flex-direction: column;
+  height: $containerHeight;
+
+  #{$headerSelector} {
+    display: flex;
+    flex: none;
+  }
+
+  #{$bottomSelector} {
+    flex: 1;
+  }
+}
+
+/* 1像素边框实现（ios高清屏问题）
+ * ${color} 边框颜色 */
+@mixin onePxScale($color: #664c4c,
+$directions: (left) (right) (top) (bottom)) {
+  border: none;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    @each $i in $directions {
+      border-#{$i}: 1px solid $color;
+    }
+  }
+
+  width: 200%;
+  height: 200%;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  transform-origin: left top;
+}
+
+/* 自定义滚动条demo */
+@mixin userDefinedDemo {
+  width: 30%;
+  height: 200px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    background: #3b95f2;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #eee;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #3db6a4;
+  }
+
+  &::-webkit-scrollbar-button:start {
+    background: blanchedalmond;
+  }
+
+  &::-webkit-scrollbar-button:end {
+    background: wheat;
+  }
+}
+
+/* 自定义单选框demo */
+@mixin userDefineInputRadio {
+  width: 150px;
+  height: 50px;
+  text-align: center;
+
+  input {
+    display: none;
+  }
+
+  label {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    position: relative;
+    line-height: 50px;
+    color: #999;
+  }
+
+  label:active {
+    background: red;
+  }
+
+  label:after {
+    content: '';
+    /* 必须设置 */
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid green;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    border-radius: 50%;
+  }
+
+  input:checked+label:after {
+    background-color: blue;
+  }
+}
+
+/* 自定义多选框demo */
+@mixin userDefineInputCheckBox {
+  width: 150px;
+  height: 50px;
+  text-align: center;
+
+  input {
+    display: none;
+  }
+
+  label {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    position: relative;
+    line-height: 50px;
+    color: #999;
+  }
+
+  label:active {
+    background: wheat;
+  }
+
+  label:after {
+    content: '';
+    /* 必须设置 */
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid crimson;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+  }
+
+  input:checked+label:after {
+    background-color: darkkhaki;
+  }
+}

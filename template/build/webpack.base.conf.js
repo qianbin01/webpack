@@ -8,11 +8,15 @@ const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({
   size: os.cpus().length
 })
-function resolve (dir) {
+const {
+  VueLoaderPlugin
+} = require('vue-loader')
+
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
-{{#lint}}const createLintingRule = () => ({
+const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',
   enforce: 'pre',
@@ -21,9 +25,10 @@ function resolve (dir) {
     formatter: require('eslint-friendly-formatter'),
     emitWarning: !config.dev.showEslintErrorsInOverlay
   }
-}){{/lint}}
+})
 
 module.exports = {
+  mode: 'development',
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -31,19 +36,16 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath: process.env.NODE_ENV === 'production' ?
+      config.build.assetsPublicPath : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      {{#if_eq build "standalone"}}
       'vue$': 'vue/dist/vue.esm.js',
-      {{/if_eq}}
       '@': resolve('src'),
       '@components': resolve('src/components'),
-      '@views':resolve('src/views'),
+      '@views': resolve('src/views'),
       '@img': resolve('static/img')
     }
   },
@@ -56,9 +58,7 @@ module.exports = {
   },
   module: {
     rules: [
-      {{#lint}}
       ...(config.dev.useEslint ? [createLintingRule()] : []),
-      {{/lint}}
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -109,7 +109,8 @@ module.exports = {
       id: 'happy-babel-js',
       loaders: ['babel-loader?cacheDirectory=true'],
       threadPool: happyThreadPool,
-    })
+    }),
+    new VueLoaderPlugin()
   ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue

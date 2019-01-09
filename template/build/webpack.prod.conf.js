@@ -16,6 +16,14 @@ const env = process.env.NODE_ENV === 'testing' ?
 
 const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
+  performance: {
+    hints: "warning",
+    maxAssetSize: 300000,
+    maxEntrypointSize: 1000000,
+    assetFilter(assetFilename) {
+      return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
+    }
+  },
   optimization: {
     splitChunks: {
       cacheGroups: {

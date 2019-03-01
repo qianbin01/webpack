@@ -27,3 +27,25 @@ new Vue({
   template: '<App/>'
   {{/if_eq}}
 })
+
+//权限管理限制的路由跳转
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth) {
+    if (sessionStorage.getItem('isLogin') === '1') {
+      if (to.meta.role.includes(parseInt(sessionStorage.getItem('role')))) {
+        next()
+      } else {
+        next({ path: '/page403' })
+      }
+    } else {
+      next({ path: '/' })
+      Message({
+        showClose: true,
+        message: '检测到您还未登录,请登录后操作!',
+        type: 'error'
+      })
+    }
+  } else {
+    next()
+  }
+})

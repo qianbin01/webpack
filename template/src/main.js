@@ -5,7 +5,7 @@ import store from './store'
 
 import mmPlugin from './plugins/mmPlugin'
 import './styles/mkml_common.scss'
-import { Message } from 'element-ui'
+import { Notify } from 'vant'
 Vue.use(mmPlugin)
 Vue.config.productionTip = false
 new Vue({
@@ -23,10 +23,9 @@ router.beforeEach((to, from, next) => {
       }
     } else {
       next({ path: '/' })
-      Message({
-        showClose: true,
-        message: '检测到您还未登录,请登录后操作!',
-        type: 'error'
+      Notify({
+        duration:1000,
+        message: '检测到您还未登录,请登录后操作!'
       })
     }
   } else {

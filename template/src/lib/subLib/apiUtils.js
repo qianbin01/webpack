@@ -1,4 +1,4 @@
-import { Message } from 'element-ui'
+import { Notify } from 'vant'
 import router from '../../router'
 const axios = require('axios')
 
@@ -81,20 +81,14 @@ class HttpMethod {
           if (res.data.ret === 20000) {
             resolve(res.data)
           } else if (res.data.ret === 40102) {
-            Message({
-              showClose: true,
+            Notify({
               message: '登录信息失效,请重新登录',
-              type: 'error',
-              customClass: 'zZindex'
             })
             router.replace('/')
           } else {
             if (res.data.ret !== 40201) {
-              Message({
-                showClose: true,
+              Notify({
                 message: res.data.msg,
-                type: 'error',
-                customClass: 'zZindex'
               })
               reject(res.data)
             }
@@ -124,20 +118,14 @@ class HttpMethod {
           if (res.data.ret === 20000) {
             resolve(res.data)
           } else if (res.data.ret === 40102) {
-            Message({
-              showClose: true,
+            Notify({
               message: '登录信息失效,请重新登录',
-              type: 'error',
-              customClass: 'zZindex'
             })
             router.replace('/')
           } else {
             if (res.data.ret !== 40201) {
-              Message({
-                showClose: true,
+              Notify({
                 message: res.data.msg,
-                type: 'error',
-                customClass: 'zZindex'
               })
             }
             reject(res.data)
@@ -171,19 +159,13 @@ class HttpMethod {
           if (res.data.ret === 20000) {
             resolve(res.data)
           } else if (res.data.ret === 40102) {
-            Message({
-              showClose: true,
+            Notify({
               message: '登录信息失效,请重新登录',
-              type: 'error',
-              customClass: 'zZindex'
             })
             router.replace('/')
           } else {
-            Message({
-              showClose: true,
+            Notify({
               message: res.data.msg,
-              type: 'error',
-              customClass: 'zZindex'
             })
           }
         })

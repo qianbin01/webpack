@@ -1,118 +1,12 @@
 /* 改变主题色变量 */
 
-$--color-primary: $themeColor;
-$--color-success: $successColor !default;
-$--color-warning: $themeColor2 !default;
-$--color-danger: $warnColor !default;
-$--color-info: $infoColor !default;
+$--color-primary: blue;
+$--color-success: green !default;
+$--color-warning: yellow !default;
+$--color-danger: red !default;
+$--color-info: grey !default;
 /* 改变 icon 字体路径变量，必需 */
 
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 @import '~element-ui/packages/theme-chalk/src/index';
 /* popover */
-
-// .el-popover {
-//   color: #fff !important;
-// }
-$--popover-fill: $bgAssistColor !default;
-$--popover-title-color: $infoColor !default;
-/* tooltip */
-
-$--tooltip-fill: $bgAssistColor !default;
-$--tooltip-color: #fff !default;
-/* progress */
-
-.el-progress-bar__outer {
-  background-color: #e1e1e1 !important;
-  border-radius: 10px !important;
-}
-
-.el-progress-bar__innerText {
-  width: 100%;
-  text-align: center;
-}
-
-/* input */
-
-.el-input-group__append {
-  background: $themeColor !important;
-  color: #fff !important;
-}
-
-/* step */
-
-.el-step__title.is-finish,
-.el-step__title.is-process,
-.el-step__title.is-wait {
-  color: #333 !important;
-  font-weight: normal !important;
-}
-
-.el-step__head.is-process,
-.el-step__head.is-finish {
-  color: $themeColor2 !important;
-  border-color: $themeColor2 !important;
-  .el-step__line {
-    background-color: $themeColor2 !important;
-  }
-}
-
-.el-step__head.is-wait {
-  color: $assistColor !important;
-  border-color: $assistColor !important;
-  .el-step__line {
-    background-color: $assistColor !important;
-  }
-}
-
-/* message */
-
-$--message-success-color: #ddffeb !default;
-$--message-info-color: #e3edff !default;
-$--message-warning-color: #fffadf !default;
-$--message-danger-color: #ffd4c5 !default;
-.el-message {
-  top: 50% !important;
-  transform: translate(-50%, -50%) !important;
-}
-.el-message--error .el-message__content,
-.el-message .el-icon-error {
-  color: $lessonWarnColor !important;
-}
-
-.el-message--success .el-message__content,
-.el-message .el-icon-success {
-  color: $lessonSuccessColor !important;
-}
-
-.el-message--info .el-message__content,
-.el-message .el-icon-info {
-  color: $lessonPrimaryColor !important;
-}
-
-.el-message--warning .el-message__content,
-.el-message .el-icon-warning {
-  color: $lessonInfoColor !important;
-}
-
-.el-tab-pane {
-  font-size: 14px !important;
-  color: $defaultFontColor !important;
-}
-
-/* slider */
-
-.el-slider__button {
-  width: 10px !important;
-  height: 10px !important;
-}
-
-.el-slider__bar {
-  background-color: $blueColor !important;
-}
-
-.el-slider__runway {
-  background-color: #bfc7d3 !important;
-  margin: 0 !important;
-  height: 2px !important;
-}

@@ -5,7 +5,6 @@ import store from './store'
 
 import mmPlugin from './plugins/mmPlugin'
 import './styles/mkml_common.scss'
-import './styles/element_theme.scss'
 import { Message } from 'element-ui'
 Vue.use(mmPlugin)
 Vue.config.productionTip = false

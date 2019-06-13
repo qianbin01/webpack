@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const index = r => require.ensure([], () => r(require('@views/index')), 'index')
+const index = () =>
+import(/* webpackChunkName: "index" */ '@views/index')
 
 Vue.use(Router)
 

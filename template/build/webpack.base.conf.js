@@ -42,11 +42,15 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
+      vue$: 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       '@components': resolve('src/components'),
       '@views': resolve('src/views'),
-      '@img': resolve('static/img')
+      '@vendor': resolve('static/vendor'),
+      '@img': resolve('static/img'),
+      '@audio': resolve('static/audio'),
+      '@video': resolve('static/video'),
+      '@constant': resolve('src/data/apiConstant.js')
     }
   },
   externals: {
@@ -98,7 +102,7 @@ module.exports = {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 10000,
+          limit: 50000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }

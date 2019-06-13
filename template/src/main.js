@@ -1,38 +1,23 @@
-{{#if_eq build "standalone"}}
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-{{/if_eq}}
+import Vue from 'vue'
 import App from './App'
-{{#router}}
 import router from './router'
-  import './icons'
+import store from './store'
 
-{{/router}}
-const Vue = require('vue')
-const ElementUI = require('element-ui')
-Vue.use(ElementUI)
+import mmPlugin from './plugins/mmPlugin'
+import './styles/mkml_common.scss'
+import './styles/element_theme.scss'
+import { Message } from 'element-ui'
+Vue.use(mmPlugin)
 Vue.config.productionTip = false
-
-/* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  {{#router}}
   router,
-  {{/router}}
-  {{#if_eq build "runtime"}}
+  store,
   render: h => h(App)
-  {{/if_eq}}
-  {{#if_eq build "standalone"}}
-  components: { App },
-  template: '<App/>'
-  {{/if_eq}}
-})
-
-//权限管理限制的路由跳转
+}).$mount('#app')
 router.beforeEach((to, from, next) => {
   if (to.meta.auth) {
     if (sessionStorage.getItem('isLogin') === '1') {
-      if (to.meta.role.includes(parseInt(sessionStorage.getItem('role')))) {
+      if (to.meta.role.includes(Number(sessionStorage.getItem('role')))) {
         next()
       } else {
         next({ path: '/page403' })

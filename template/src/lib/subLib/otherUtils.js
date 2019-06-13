@@ -28,8 +28,8 @@ const changeOSSByHost = src => {
  * @returns
  */
 const getCookie = key => {
-  var arr,
-    reg = new RegExp('(^| )' + key + '=([^;]*)(;|$)')
+  let arr = ''
+  let reg = new RegExp('(^| )' + key + '=([^;]*)(;|$)')
   if ((arr = document.cookie.match(reg))) return arr[2]
   else return null
 }
